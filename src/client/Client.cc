@@ -4713,6 +4713,8 @@ int Client::_read(Fh *f, int64_t offset, uint64_t size, bufferlist *bl)
     r = _read_async(f, offset, size, bl);
   else
     r = _read_sync(f, offset, size, bl);
+  if (r < 0)
+    return r;
 
   if (movepos) {
     // adjust fd pos
